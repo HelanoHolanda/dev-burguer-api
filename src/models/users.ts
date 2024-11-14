@@ -1,23 +1,25 @@
-import mongoose, { Schema, connection, model } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 type UserType = {
-  //Criacao do type
   id: string;
   name: string;
   email: string;
   password: string;
-  confirmPassword: string;
-  timestamps: boolean;
+  admin: boolean;
 };
 
-const userSchema = new Schema<UserType>({
-  // Criacao do schema
-  id: String,
-  name: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-  confirmPassword: { type: String, required: true },
-  timestamps: true,
-});
+const userSchema = new Schema<UserType>(
+  {
+    // Criação do schema
+    id: String,
+    name: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    admin: { type: Boolean },
+  },
+  {
+    timestamps: true, // Passa como uma opção do esquema
+  }
+);
 
-export const User = mongoose.model("User", userSchema);
+export const UserMongo = mongoose.model("User", userSchema);
