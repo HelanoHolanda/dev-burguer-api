@@ -1,9 +1,10 @@
 import express from "express";
 import { setupMongo } from "./database";
 import { routes } from "./routes/routes";
+import dotenv from "dotenv";
 
 const server = express();
-
+dotenv.config();
 setupMongo().then(() => {
   server.use(express.json());
   server.use(routes);
